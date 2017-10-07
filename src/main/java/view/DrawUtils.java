@@ -5,6 +5,7 @@ import lombok.Setter;
 import model.Span;
 
 import java.util.Arrays;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.function.Function;
 public class DrawUtils {
 
     Character charVal;
-    Span span;
+//    Span span;
 
     public DrawUtils(Character charVal) {
         this.charVal = charVal;
@@ -22,9 +23,18 @@ public class DrawUtils {
         return drawTopBorder.andThen(drawBottomBorder.andThen(drawLeftBorder.andThen(drawRightBorder)));
     }
 
-    public Function<Character[][], Character[][]> drawCross(Character[][]canvasArray)   {
-        return populateColumnFunction.andThen(populateRowFunction);
+    public Function<Character[][], Character[][]> drawCross(Character[][]canvasArray, Span spanX, Span spanY)   {
+        return partialColumnFunction(populateColumnFunction, spanY).andThen(partialRowFunction(populateRowFunction, spanX));
     };
+
+    public Function<Character[][], Character[][]> partialColumnFunction(BiFunction<Character[][], Span, Character[][]> func, Span span) {
+        return (Character[][] canvasArray) -> populateColumnFunction.apply(canvasArray, span);
+    }
+
+    public Function<Character[][], Character[][]> partialRowFunction(BiFunction<Character[][], Span, Character[][]> func, Span span) {
+        return (Character[][] canvasArray) -> populateRowFunction.apply(canvasArray, span);
+    }
+
 
     public Function<Character[][], Character[][]> drawTopBorder = (canvasArray) -> {
         return populateRow(canvasArray, new Span(0, xLimit(canvasArray), 0, 0));
@@ -50,14 +60,14 @@ public class DrawUtils {
         return canvasArray[0].length - 1;
     }
 
-    public Function<Character[][], Character[][]> populateColumnFunction = (canvasArray)  -> {
+    public BiFunction<Character[][], Span, Character[][]> populateColumnFunction = (canvasArray, span)  -> {
         for (int y = span.getFrom(); y <= span.getTo(); y++) {
             canvasArray[span.getColumn()][y] = charVal;
         }
         return canvasArray;
     };
 
-    public Function<Character[][], Character[][]> populateRowFunction = (canvasArray)  -> {
+    public BiFunction<Character[][], Span, Character[][]> populateRowFunction = (canvasArray, span)  -> {
         for (int x=span.getFrom(); x < span.getTo(); x++) {
             canvasArray[x][span.getRow()] = charVal;
         }
