@@ -23,7 +23,7 @@ public class DrawApp {
 //            Character charVal = (char)0xF09F98A0;
             Canvas canvas = new Canvas(command.getWidth(), command.getHeight());
             final Character[][] canvasArray = canvas.getArray();
-            final Function<Character[][], Character[][]> drawFrame = new DrawUtils('*').drawFrame(canvasArray);
+            final Function<Character[][], Character[][]> drawFrame = new DrawUtils('*').drawFrame();
             final Character[][] frame = drawFrame.apply(canvasArray);
 
             new CanvasView(frame).draw();

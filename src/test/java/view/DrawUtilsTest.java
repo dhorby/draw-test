@@ -10,13 +10,14 @@ public class DrawUtilsTest {
 
     @Test
     public void drawFrame() throws Exception {
-        Character[][] testArray = new Character[4][4]  ;
+        Character[][] testArray = new Character[5][4]  ;
         DrawUtils.resetArray(testArray, ' ');
-        final Function<Character[][], Character[][]> drawFrameFunction = new DrawUtils('*').drawFrame(new Character[10][10]);
+        final Function<Character[][], Character[][]> drawFrameFunction = new DrawUtils('*').drawFrame();
         final Character[][] results = drawFrameFunction.apply(testArray);
         final Object[] objects = Arrays.stream(results).flatMap(Arrays::stream).toArray();
         Character[][] expectedResults = new Character[][] {
             {'*', '*','*','*'},
+            {'*', ' ',' ','*'},
             {'*', ' ',' ','*'},
             {'*', ' ',' ','*'},
             {'*', '*','*','*'}

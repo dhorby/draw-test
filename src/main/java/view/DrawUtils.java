@@ -19,7 +19,7 @@ public class DrawUtils {
         this.charVal = charVal;
     }
 
-    public Function<Character[][], Character[][]> drawFrame(Character[][] canvasArray) {
+    public Function<Character[][], Character[][]> drawFrame() {
         return drawTopBorder.andThen(drawBottomBorder.andThen(drawLeftBorder.andThen(drawRightBorder)));
     }
 
