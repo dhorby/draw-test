@@ -1,6 +1,8 @@
 import model.Canvas;
-import view.CanvasBorder;
+import view.DrawUtils;
 import view.CanvasView;
+
+import java.util.function.Function;
 
 public class DrawApp {
 
@@ -16,11 +18,9 @@ public class DrawApp {
 //            CommandParser.parseCommand(command);
             Canvas canvas = new Canvas(10,5);
             final Character[][] canvasArray = canvas.getArray();
-            final Character[][] characters = CanvasBorder.populateTopBorder(canvasArray, '*');
-            final Character[][] characters1 = CanvasBorder.populateBottomBorder(canvasArray, '*');
-            final Character[][] characters2 = CanvasBorder.populateLeftColumn(canvasArray, '*');
-            final Character[][] characters3 = CanvasBorder.populateRightColumn(canvasArray, '*');
-            new CanvasView(characters3).draw();
+            final Function<Character[][], Character[][]> drawFrame = new DrawUtils('*').drawFrame(canvasArray);
+            final Character[][] frame = drawFrame.apply(canvasArray);
+            new CanvasView(frame).draw();
 
             finished = true;
         } while (!finished);

@@ -2,7 +2,7 @@ package model;
 
 
 import lombok.Getter;
-import view.CanvasBorder;
+import view.DrawUtils;
 
 @Getter
 public class Canvas {
@@ -17,7 +17,7 @@ public class Canvas {
 
     public Character[][] getArray()  {
         Character[][] canvasArray = new Character[width][height];
-        CanvasBorder.resetArray(canvasArray, ' ');
+        DrawUtils.resetArray(canvasArray, ' ');
         return canvasArray;
     }
 
