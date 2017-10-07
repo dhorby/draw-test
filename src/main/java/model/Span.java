@@ -10,4 +10,6 @@ public class Span {
 
     private int from;
     private int to;
+    private int row;
+    private int column;
 }

@@ -22,19 +22,19 @@ public class DrawUtils {
     }
 
     public Function<Character[][], Character[][]> drawTopBorder = (canvasArray) -> {
-        return populateRow(canvasArray, 0, new Span(0, xLimit(canvasArray)));
+        return populateRow(canvasArray, new Span(0, xLimit(canvasArray), 0, 0));
     };
 
     public Function<Character[][], Character[][]> drawBottomBorder = (canvasArray) -> {
-        return populateRow(canvasArray, yLimit(canvasArray), new Span(0, xLimit(canvasArray)));
+        return populateRow(canvasArray, new Span(0, xLimit(canvasArray), yLimit(canvasArray), 0));
     };
 
     public Function<Character[][], Character[][]> drawLeftBorder = (canvasArray) -> {
-        return populateColumn(canvasArray, 0, new Span(0, yLimit(canvasArray)));
+        return populateColumn(canvasArray, new Span(0, yLimit(canvasArray),0 , 0));
     };
 
     public Function<Character[][], Character[][]> drawRightBorder = (canvasArray) -> {
-        return populateColumn(canvasArray, xLimit(canvasArray), new Span(0, yLimit(canvasArray)));
+        return populateColumn(canvasArray, new Span(0, yLimit(canvasArray), 0, xLimit(canvasArray)));
     };
 
     private static int xLimit(Character[][] canvasArray) {
@@ -45,8 +45,8 @@ public class DrawUtils {
         return canvasArray[0].length - 1;
     }
 
-//    public  Function<Character[][], Character[][]> populateColumn(Character[][] canvasArray, Character charVal, int column, int from, int to) {
-//        for (int y = from; y <= to; y++) {
+//    public  Function<Character[][], Character[][]> populateColumn(Character[][] canvasArray, int column, Span span) {
+//        for (int y = span.getFrom(); y <= span.getTo(); y++) {
 //            canvasArray[column][y] = charVal;
 //        }
 //        return canvasArray;
@@ -54,17 +54,17 @@ public class DrawUtils {
 
 
 
-    public  Character[][] populateColumn(Character[][] canvasArray, int column, Span span) {
+    public  Character[][] populateColumn(Character[][] canvasArray, Span span) {
         for (int y = span.getFrom(); y <= span.getTo(); y++) {
-            canvasArray[column][y] = charVal;
+            canvasArray[span.getColumn()][y] = charVal;
         }
         return canvasArray;
     }
 
 
-    public  Character[][] populateRow(Character[][] canvasArray, int row, Span span) {
+    public  Character[][] populateRow(Character[][] canvasArray,Span span) {
         for (int x=span.getFrom(); x < span.getTo(); x++) {
-            canvasArray[x][row] = charVal;
+            canvasArray[x][span.getRow()] = charVal;
         }
         return canvasArray;
     }
