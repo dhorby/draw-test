@@ -11,7 +11,6 @@ public class DrawApp {
         System.out.println("Started");
         Boolean finished = false;
 
-//        Scanner scanner = new Scanner(System.in);
         do {
             System.out.print("enter command: ");
 //            String command = scanner.nextLine();
