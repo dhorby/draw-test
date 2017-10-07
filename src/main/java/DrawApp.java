@@ -1,6 +1,6 @@
 import model.Canvas;
-import view.DrawUtils;
 import view.CanvasView;
+import view.DrawUtils;
 
 import java.util.function.Function;
 
@@ -19,7 +19,10 @@ public class DrawApp {
             final Character[][] canvasArray = canvas.getArray();
             final Function<Character[][], Character[][]> drawFrame = new DrawUtils('*').drawFrame(canvasArray);
             final Character[][] frame = drawFrame.apply(canvasArray);
+
             new CanvasView(frame).draw();
+
+
 
             finished = true;
         } while (!finished);
